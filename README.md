@@ -1000,9 +1000,7 @@ npm run dev
 
 ## 🎉 Thank You
 
-Thank you for using Document Intelligence System! 
 
-For questions, suggestions, or bug reports, please contact Karan Sharma.
 
 **Happy Extracting! 🚀**
 
