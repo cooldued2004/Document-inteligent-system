@@ -92,11 +92,14 @@ function App() {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:8000/extract', formData, {
+      console.log('Starting extraction...');
+      const response = await axios.post('/extract', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        timeout: 120000, // 120 second timeout for large files
       });
+      console.log('Extraction successful:', response.data);
       setResults(response.data);
       
       // Add to history
@@ -110,11 +113,12 @@ function App() {
       setHistory(updatedHistory);
       localStorage.setItem('extractionHistory', JSON.stringify(updatedHistory));
     } catch (err) {
-      setError(
-        err.response?.data?.detail || 
+      console.error('Extraction error:', err);
+      const errorMessage = err.response?.data?.detail || 
         err.message || 
-        'Failed to extract information from document'
-      );
+        'Failed to extract information from document';
+      console.error('Error message:', errorMessage);
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
